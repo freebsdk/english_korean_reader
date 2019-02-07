@@ -2,6 +2,11 @@
 
 open System
 
+
+let readPhoneticString str = 
+    
+
+
 [<EntryPoint>]
 let main argv =
     printfn "Hello World from F#!"
