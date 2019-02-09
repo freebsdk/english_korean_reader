@@ -124,13 +124,13 @@ module HangulCodeTable =
 
         member private x.combineSyallable () =
             let chosungVal = match ChosungToCode x.chosung with
-                                | Some x -> x
+                                | Some v -> v
                                 | _ -> 0
             let jungsungVal = match JungsungToCode x.jungsung with
-                                | Some x -> x
+                                | Some v -> v
                                 | _ -> 0
             let jongsungVal = match JongsungToCode x.jongsung with
-                                | Some x -> x
+                                | Some v -> v
                                 | _ -> 0
 
             (((chosungVal * 21) + jungsungVal) * 28) + jongsungVal + 0xAC00
@@ -182,7 +182,7 @@ module HangulCodeTable =
                         parsePtr <- parsePtr + 1
                         syllableState <- Chosung
                     | _ ->
-                        // Bring consonant from the privious letter
+                        // Bring a consonant from the privious letter
                         current.chosung <- beforeValue.jongsung
                         beforeValue.jongsung <- None
                         current.jungsung <- syllable
@@ -192,7 +192,7 @@ module HangulCodeTable =
                     parsePtr <- parsePtr + 1
                     syllableState <- Chosung
             else
-                // When add a jongsung consonant as Chosung
+                // When add a Jongsung consonant as Chosung
                 current.jongsung <- syllable
                 syllableState <- Chosung
                 parsePtr <- parsePtr + 1
