@@ -183,9 +183,9 @@ module HangulCodeTable =
                 | Some beforeValue ->
                     match beforeValue.jongsung with
                     | None ->
-                        // When there are no more consonants to bring
+                        // When there is no more consonant to bring
                         current.jungsung <- syllable
-                        x.MoveNextAndInit
+                        x.moveNextAndInit
                     | _ ->
                         // Bring a consonant from the privious letter
                         current.chosung <- beforeValue.jongsung
@@ -194,11 +194,11 @@ module HangulCodeTable =
                         syllableState <- Jongsung
                 | _ ->
                     current.jungsung <- syllable
-                    x.MoveNextAndInit
+                    x.moveNextAndInit
             else
                 // When add a Jongsung consonant as Chosung
                 current.jongsung <- syllable
-                x.MoveNextAndInit
+                x.moveNextAndInit
 
 
 
@@ -212,11 +212,11 @@ module HangulCodeTable =
                 current.jungsung <- syllable
                 syllableState <- Jongsung
             else if isChosungConsonants syllable then
-                x.MoveNextAndInit
+                x.moveNextAndInit
                 x.onAddChosung syllable
             else
                 // When add a Jongsung consonant as Jungsung
-                x.MoveNextAndInit
+                x.moveNextAndInit
                 x.onAddJongsung syllable
 
 
@@ -230,7 +230,7 @@ module HangulCodeTable =
             else if isVowels syllable then
                 current.jungsung <- syllable
 
-            x.MoveNextAndInit
+            x.moveNextAndInit
 
 
 
