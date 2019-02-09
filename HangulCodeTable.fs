@@ -164,7 +164,7 @@ module HangulCodeTable =
 
 
 
-        member x.MoveNextAndInit = 
+        member x.moveNextAndInit = 
             parsePtr <- parsePtr + 1
             syllableState <- Chosung
 
