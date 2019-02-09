@@ -10,6 +10,12 @@ open EnglishKoreanReader
 
 [<EntryPoint>]
 let main argv =
-    let hs = HangulCodeTable.HangulChar('ㅋ','ㅓ','ㄴ')
-    printfn "%c" (hs.ToChar())
+    let hs = HangulCodeTable.HangulString()
+    hs.AddSyllable('ㄱ')
+    hs.AddSyllable('ㅏ')
+    hs.AddSyllable('ㄴ')
+    hs.AddSyllable('ㄷ')
+    hs.AddSyllable('ㅏ')
+    hs.AddSyllable('ㄴ')
+    printfn "%s" (hs.ToString())
     0 // return an integer exit code
