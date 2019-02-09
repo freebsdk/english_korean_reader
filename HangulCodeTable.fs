@@ -164,6 +164,12 @@ module HangulCodeTable =
 
 
 
+        member x.MoveNextAndInit = 
+            parsePtr <- parsePtr + 1
+            syllableState <- Chosung
+
+
+
 
         member x.onAddChosung syllable =
             let before = x.getBeforeHanChar parsePtr
@@ -179,8 +185,7 @@ module HangulCodeTable =
                     | None ->
                         // When there are no more consonants to bring
                         current.jungsung <- syllable
-                        parsePtr <- parsePtr + 1
-                        syllableState <- Chosung
+                        x.MoveNextAndInit
                     | _ ->
                         // Bring a consonant from the privious letter
                         current.chosung <- beforeValue.jongsung
@@ -189,13 +194,12 @@ module HangulCodeTable =
                         syllableState <- Jongsung
                 | _ ->
                     current.jungsung <- syllable
-                    parsePtr <- parsePtr + 1
-                    syllableState <- Chosung
+                    x.MoveNextAndInit
             else
                 // When add a Jongsung consonant as Chosung
                 current.jongsung <- syllable
-                syllableState <- Chosung
-                parsePtr <- parsePtr + 1
+                x.MoveNextAndInit
+
 
 
 
@@ -208,11 +212,11 @@ module HangulCodeTable =
                 current.jungsung <- syllable
                 syllableState <- Jongsung
             else if isChosungConsonants syllable then
-                parsePtr <- parsePtr + 1
+                x.MoveNextAndInit
                 x.onAddChosung syllable
             else
                 // When add a Jongsung consonant as Jungsung
-                parsePtr <- parsePtr + 1
+                x.MoveNextAndInit
                 x.onAddJongsung syllable
 
 
@@ -225,9 +229,8 @@ module HangulCodeTable =
                 current.jongsung <- syllable
             else if isVowels syllable then
                 current.jungsung <- syllable
-            
-            parsePtr <- parsePtr + 1
-            syllableState <- Chosung
+
+            x.MoveNextAndInit
 
 
 
