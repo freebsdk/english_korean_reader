@@ -24,7 +24,7 @@ module HangulCodeTable =
         | Some 'ㅌ' -> Some 16
         | Some 'ㅍ' -> Some 17
         | Some 'ㅎ' -> Some 18
-        | None -> None
+        | _ -> None
         
     let JungsungToCode syllable =
         match syllable with
@@ -49,7 +49,7 @@ module HangulCodeTable =
         | Some 'ㅡ' -> Some 18
         | Some 'ㅢ' -> Some 19
         | Some 'ㅣ' -> Some 20
-        | None -> None
+        | _ -> None
 
     let JongsungToCode syllable = 
         match syllable with
@@ -80,7 +80,7 @@ module HangulCodeTable =
         | Some 'ㅌ' -> Some 25
         | Some 'ㅍ' -> Some 26
         | Some 'ㅎ' -> Some 27
-        | None -> None
+        | _ -> None
 
 
 
@@ -116,11 +116,11 @@ module HangulCodeTable =
 
 
 
-    type HangulChar(pChosungSyllable, pJungsungSyllable, pJongsungSyllable) = 
+    type HangulChar() = 
 
-        member val chosung = pChosungSyllable with get, set
-        member val jungsung = pJungsungSyllable with get, set
-        member val jongsung = pJongsungSyllable with get, set
+        member val chosung = None with get, set
+        member val jungsung = None with get, set
+        member val jongsung = None with get, set
 
         member private x.combineSyallable () =
             let chosungVal = match ChosungToCode x.chosung with
@@ -149,7 +149,7 @@ module HangulCodeTable =
         
         do
             for i in 0 .. hangulAry.Length-1 do
-                hangulAry.[i] <- HangulChar(None,None,None)
+                hangulAry.[i] <- HangulChar()
 
 
 
@@ -236,15 +236,15 @@ module HangulCodeTable =
 
 
 
-        member x.AddSyllable (syllable) =
+        member x.AddSyllable (syllable: char) =
 
             let before = x.getBeforeHanChar parsePtr
             let current = hangulAry.[parsePtr]
 
             match syllableState with
-            | Chosung -> x.onAddChosung syllable
-            | Jungsung -> x.onAddJungsung syllable
-            | Jongsung -> x.onAddChosung syllable
+            | Chosung -> x.onAddChosung (Some syllable)
+            | Jungsung -> x.onAddJungsung (Some syllable)
+            | Jongsung -> x.onAddChosung (Some syllable)
 
 
 

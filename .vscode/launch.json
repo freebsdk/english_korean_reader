@@ -5,15 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "dotnet_launch",
+            "name": "main_launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build2",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/${workspaceFolderBasename}.dll",
+            "program": "${workspaceFolder}/english_korean_reader/bin/Debug/netcoreapp2.2/english_korean_reader.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false
         },
+        {
+            "name": "test_launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build2",
+            "program": "dotnet",
+            "args": ["test"],
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
     ]
 }

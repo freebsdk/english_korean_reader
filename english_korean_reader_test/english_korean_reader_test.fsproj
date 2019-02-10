@@ -18,4 +18,8 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\english_korean_reader\english_korean_reader.fsproj" />
+  </ItemGroup>
+
 </Project>
