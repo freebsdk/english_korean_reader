@@ -1,2 +1,4 @@
-obj/
-bin/
+english_korean_reader/obj/
+english_korean_reader/bin/
+english_korean_reader_test/obj/
+english_korean_reader_test/bin/

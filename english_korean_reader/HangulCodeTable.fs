@@ -156,7 +156,7 @@ module HangulCodeTable =
 
 
 
-        member x.getBeforeHanChar parsePtr =
+        member private x.getBeforeHanChar parsePtr =
             if parsePtr < 1 
             then None
             else Some hangulAry.[parsePtr]
@@ -164,14 +164,14 @@ module HangulCodeTable =
 
 
 
-        member x.moveNextAndInit = 
+        member private x.moveNextAndInit = 
             parsePtr <- parsePtr + 1
             syllableState <- Chosung
 
 
 
 
-        member x.onAddChosung syllable =
+        member private x.onAddChosung syllable =
             let before = x.getBeforeHanChar parsePtr
             let current = hangulAry.[parsePtr]
 
@@ -205,7 +205,7 @@ module HangulCodeTable =
 
 
 
-        member x.onAddJungsung syllable =
+        member private x.onAddJungsung syllable =
             let current = hangulAry.[parsePtr]
 
             if isVowels syllable then
@@ -222,7 +222,7 @@ module HangulCodeTable =
 
 
 
-        member x.onAddJongsung syllable = 
+        member private x.onAddJongsung syllable = 
             let current = hangulAry.[parsePtr]
 
             if isConsonants syllable then
