@@ -16,7 +16,7 @@
             "stopAtEntry": false
         },
         {
-            "name": "test_launch",
+            "name": "unittest_launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build2",

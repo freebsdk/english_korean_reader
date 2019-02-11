@@ -1,6 +1,9 @@
 namespace EnglishKoreanReader
 open System
+open System.Text
 
+
+exception BreakException
 
 module HangulCodeTable =
     let ChosungToCode syllable =
@@ -138,7 +141,8 @@ module HangulCodeTable =
         member x.ToChar() =
             x.combineSyallable() |> Convert.ToChar
             
-
+        member x.isEmpty() =
+            (x.chosung = None && x.jungsung = None && x.jongsung = None)
 
 
 
@@ -159,7 +163,7 @@ module HangulCodeTable =
         member private x.getBeforeHanChar parsePtr =
             if parsePtr < 1 
             then None
-            else Some hangulAry.[parsePtr]
+            else Some hangulAry.[parsePtr-1]
 
 
 
@@ -237,18 +241,23 @@ module HangulCodeTable =
 
 
         member x.AddSyllable (syllable: char) =
-
-            let before = x.getBeforeHanChar parsePtr
-            let current = hangulAry.[parsePtr]
-
             match syllableState with
             | Chosung -> x.onAddChosung (Some syllable)
             | Jungsung -> x.onAddJungsung (Some syllable)
-            | Jongsung -> x.onAddChosung (Some syllable)
+            | Jongsung -> x.onAddJongsung (Some syllable)
 
 
 
-
-
+        
+        
         override x.ToString() =
-            hangulAry |> String.Concat
+            let mutable sb = StringBuilder()
+            try            
+                for i = 0 to (hangulAry.Length-1) do
+                    if hangulAry.[i].isEmpty() = true then
+                        raise BreakException
+                    sb.Insert(i, hangulAry.[i].ToChar()) |> ignore
+            with  
+                BreakException -> ()
+            sb.ToString()
+            

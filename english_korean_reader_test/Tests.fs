@@ -6,6 +6,12 @@ open EnglishKoreanReader
 open HangulCodeTable
 
 [<Fact>]
-let ``My test`` () =
+let ``Corrent hangul combind`` () =
     let hstr = HangulString()
-    Assert.True(true)
+    hstr.AddSyllable 'ㄱ'
+    hstr.AddSyllable 'ㅏ'
+    hstr.AddSyllable 'ㄴ'
+    hstr.AddSyllable 'ㄷ'
+    hstr.AddSyllable 'ㅏ'
+    hstr.AddSyllable 'ㄴ'
+    Assert.True(hstr.ToString() = "간단")
